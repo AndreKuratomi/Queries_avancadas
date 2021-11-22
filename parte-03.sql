@@ -10,44 +10,99 @@ select e.rua, e.pais, e.cidade, u.id, u.nome, u.email, u.senha, u.endereco_id
 
 --3?? (dúvida em como deixar o select igual ao modelo. Está semelhante à da table usuario_redes_sociais e tentei incluir sem sucesso)
 select r.nome, u.id, u.nome, u.email, u.senha, u.endereco_id 
-	from redes_sociais as r
+	from usuario_redes_sociais as urs
 	full outer join usuario as u
-	on r.id = u.id;
-	--order by usuario_redes_sociais.redes_sociais_id from usuario_redes_sociais urs;
+	on u.id = urs.usuario_id 
+	full outer join redes_sociais as r
+	on r.id = urs.rede_social_id;
 
---4?? (dúvida em como fazer o join de mais de 2 tabelas.)
+--4
 select r.id, r.nome, u.id, u.nome, u.email, u.senha, u.endereco_id, e. id, e.rua, e.pais, e.cidade
-	from redes_sociais as r 
+	from usuario_redes_sociais as urs
+	full outer join redes_sociais as r
+	on r.id = urs.redes_sociais_id 
 	full outer join usuario as u
+	on u.id = urs.usuario_id 
 	full outer join enderecos as e
-	on r.id = u.id and u.endereco_id = e.id;
+	on e.id = u.endereco_id;	
 
---5?? (idem seletor 4)
+--5
+select rede_social.nome, usuario.nome, usuario.email, e.cidade 
+	from usuario_redes_sociais as urs 
+	full outer join redes_sociais as rede_social
+	on rede_social.id = urs.redes_sociais_id 
+	full outer join usuario
+	on usuario.id = urs.usuario_id 
+	full outer join enderecos as e 
+	on e.id = usuario.endereco_id;
+
+
+--6
 select 
 	rede_social.nome, 
 	usuario.nome, usuario.email,
 	e.cidade 
-	from redes_sociais as rede_social
-	full outer join enderecos as e
-	on rede_social.id = usuario.id and usuario.endereco_id = e.id;
+	from usuario_redes_sociais as urs 
+	full outer join redes_sociais as rede_social
+	on rede_social.id = urs.redes_sociais_id
+	full outer join usuario
+	on usuario.id = urs.usuario_id
+	full outer join enderecos as e 
+	on e.id = usuario.endereco_id
+	where rede_social.nome = 'Youtube';
+	
+--7
+select 
+	rede_social.nome, 
+	usuario.nome, usuario.email,
+	e.cidade 
+	from usuario_redes_sociais as urs 
+	full outer join redes_sociais as rede_social
+	on rede_social.id = urs.redes_sociais_id
+	full outer join usuario
+	on usuario.id = urs.usuario_id
+	full outer join enderecos as e 
+	on e.id = usuario.endereco_id
+	where rede_social.nome = 'Instagram';
 
---6 (consequência selector 5)
-(...)
-where r.nome = "Youtube";
+--8
+select 
+	rede_social.nome, 
+	usuario.nome, usuario.email,
+	e.cidade 
+	from usuario_redes_sociais as urs 
+	full outer join redes_sociais as rede_social
+	on rede_social.id = urs.redes_sociais_id
+	full outer join usuario
+	on usuario.id = urs.usuario_id
+	full outer join enderecos as e 
+	on e.id = usuario.endereco_id
+	where rede_social.nome = 'Facebook';
 
---7 (idem)
-(...)
-where r.nome = "Instagram";
+--9
+select 
+	rede_social.nome, 
+	usuario.nome, usuario.email,
+	e.cidade 
+	from usuario_redes_sociais as urs 
+	full outer join redes_sociais as rede_social
+	on rede_social.id = urs.redes_sociais_id
+	full outer join usuario
+	on usuario.id = urs.usuario_id
+	full outer join enderecos as e 
+	on e.id = usuario.endereco_id
+	where rede_social.nome = 'Tiktok';
 
---8 (idem)
-(...)
-where r.nome = "Facebook";
-
---9 (idem)
-(...)
-where r.nome = "Tiktok";
-
---10 (idem)
-(...)
-where r.nome = "Twitter";
-
+--10
+select 
+	rede_social.nome, 
+	usuario.nome, usuario.email,
+	e.cidade 
+	from usuario_redes_sociais as urs 
+	full outer join redes_sociais as rede_social
+	on rede_social.id = urs.redes_sociais_id
+	full outer join usuario
+	on usuario.id = urs.usuario_id
+	full outer join enderecos as e 
+	on e.id = usuario.endereco_id
+	where rede_social.nome = 'Twitter';
